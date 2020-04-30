@@ -5,16 +5,28 @@ Spyder Editor
 This is a temporary script file.
 """
 import pandas as pd
-import numpy as numpy
-import random as random
+import numpy as np
+import random as rand
 
+studentAmount = 75
+list = [0]
 
-size = 75
-list = []
+bottom = 100
+top= 300
 
-#for i in range(size):
-i = random.sample(range(100,300), 6)
-list.append(i)
+sampleNum = 5
 
+N = sampleNum*np.log(sampleNum)
 
-print(list)
+print("sampleNum: ", sampleNum)
+
+print("N = sampleNum * log(sampleNum): ", int(round(N)))
+
+#TODO for i in range(size):
+for i in range(int(round(N))):
+    newStudent = rand.sample(range(bottom, top), 1)[0]
+    list.append(newStudent)
+
+studentList = np.array(list)
+studentList = studentList[1:studentList.size]
+print("Student Arr: ", studentList)
