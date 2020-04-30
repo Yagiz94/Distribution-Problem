@@ -26,6 +26,6 @@ for i in range(int(round(N))): # loop size is N * lnN
     newStudent = rand.sample(range(bottom, top), 1)[0] #create 1 unique random number inside the loop
     list.append(newStudent)
 
-studentList = np.array(list)
-studentList = studentList[1:studentList.size]
-print("Student Arr: ", studentList)
+travel_times = np.array(list)
+travel_times = travel_times[1:travel_times.size]
+print("Travel Times Arr: ", travel_times)
