@@ -13,8 +13,7 @@ list = [0]
 
 bottom = 100
 top= 300
-
-sampleNum = 5
+sampleNum = 75
 
 N = sampleNum*np.log(sampleNum)
 
@@ -23,8 +22,8 @@ print("sampleNum: ", sampleNum)
 print("N = sampleNum * log(sampleNum): ", int(round(N)))
 
 #TODO for i in range(size):
-for i in range(int(round(N))):
-    newStudent = rand.sample(range(bottom, top), 1)[0]
+for i in range(int(round(N))): # loop size is N * lnN
+    newStudent = rand.sample(range(bottom, top), 1)[0] #create 1 unique random number inside the loop
     list.append(newStudent)
 
 studentList = np.array(list)
