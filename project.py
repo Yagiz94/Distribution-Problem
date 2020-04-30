@@ -8,13 +8,18 @@ import pandas as pd
 import numpy as numpy
 import random as random
 
+N = 75 # no of students
+travel_times = []  #Ti array
+homework_times = [] #Xi array
 
-size = 75
-list = []
+i = random.sample(range(100,500), (int)(N* numpy.log(N)))
+travel_times.append(i)
 
-#for i in range(size):
-i = random.sample(range(100,300), 6)
-list.append(i)
+print(travel_times)
+print()
 
-
-print(list)
+for x in range(N):
+    x = random.randint(300,500)
+    homework_times.append(x)
+    
+print(homework_times)
