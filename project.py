@@ -31,12 +31,11 @@ travel_times = np.array(list)
 travel_times = travel_times[1:travel_times.size]
 print("Travel Times Array: ", travel_times)
 
-print("*************** \t ********************")
-print("*************** \t ********************")
-print("*************** \t ********************")
+print(" *************** \t ******************")
+print(" *************** \t ******************")
+print(" *************** \t ******************")
 
 for i in range(studentAmount):
-    
     homework_times.append(rand.randint(300,500))
     
 print("Homework Times Array: " , homework_times)
