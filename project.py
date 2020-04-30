@@ -4,35 +4,39 @@ Spyder Editor
 
 This is a temporary script file.
 """
-
-# libraris
 import pandas as pd
 import numpy as np
 import random as rand
 
-# constants
-sampleNum = 5
 studentAmount = 75
+list = [0]
+homework_times = [0]
+
 bottom = 100
 top= 300
+sampleNum = 75
 
-# initialized list for travel times
-list = [0]
-
-# number of generatable path variations
 N = sampleNum*np.log(sampleNum)
 
-# description of travel time methodology
 print("sampleNum: ", sampleNum)
+
 print("N = sampleNum * log(sampleNum): ", int(round(N)))
 
-# procedure to generate array of path variations
 #TODO for i in range(size):
-for i in range(int(round(N))):
-    newStudent = rand.sample(range(bottom, top), 1)[0]
+for i in range(int(round(N))): # loop size is N * lnN
+    newStudent = rand.sample(range(bottom, top), 1)[0] #create 1 unique random number inside the loop
     list.append(newStudent)
 
-# convert the list of paths to numpy array
-studentList = np.array(list)
-studentList = studentList[1:studentList.size]
-print("Student Arr: ", studentList)
+travel_times = np.array(list)
+travel_times = travel_times[1:travel_times.size]
+print("Travel Times Array: ", travel_times)
+
+print("*************** \t ********************")
+print("*************** \t ********************")
+print("*************** \t ********************")
+
+for i in range(studentAmount):
+
+    homework_times.append(rand.randint(300,500))
+
+print("Homework Times Array: " , homework_times)
