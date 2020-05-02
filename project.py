@@ -116,17 +116,14 @@ travel_time_matrice = []  # holds the travel times matrix
 
 # initialize lists
 for i in range(N2):
-    print()
     print("Matrix ", i+1,":")
-    print()
     travel_time_matrice = travelTimeMatrixGenerator(N)
     averageMatrixGeneratorV1(travel_time_matrice)
     
 averageMatrixGeneratorV2(global_time_matrix,N2)  
-print("global matrix is: ", "\n\n", global_time_matrix)    
+print("\nglobal matrix is: ", "\n\n", global_time_matrix)    
 exit(0)
 travel_times = travelTimeMatrixGenerator(N)
 homework_times = studyTimeListGenerator(N)
-
 
 
