@@ -13,7 +13,7 @@ print("\n-------Welcome to the IE400 Project-------\n")
 
 # general variables
 maximumStudentAmount = 5  # TODO upper boundary for student amount
-N = 5  # TODO current student amount
+N = 10  # TODO current student amount
 N2 = (int) (round(N * np.log(N)))
 global_time_matrix = np.zeros((N+1,N+1))
 
@@ -53,7 +53,6 @@ def travelTimeMatrixGenerator(numStudents):
 
     # new line
     print()
-
     return arr
 
 
@@ -121,9 +120,7 @@ for i in range(N2):
     averageMatrixGeneratorV1(travel_time_matrice)
     
 averageMatrixGeneratorV2(global_time_matrix,N2)  
-print("\nglobal matrix is: ", "\n\n", global_time_matrix)    
+print("\n Average time travel matrix is: ", "\n\n", global_time_matrix)    
 exit(0)
 travel_times = travelTimeMatrixGenerator(N)
 homework_times = studyTimeListGenerator(N)
-
-
