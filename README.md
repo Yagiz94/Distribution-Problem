@@ -1,5 +1,5 @@
 # Corona_DP_Problem
-A DP solution for homework distribution problem under coronavirus danger.
+A DP solution for homework distribution problem during coronavirus days.
 
 # Description:
 
