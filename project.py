@@ -7,12 +7,13 @@ This is a temporary script file.
 import pandas as pd
 import numpy as np
 import random as rand
+from sys import exit
 
 print("\n-------Welcome to the IE400 Project-------\n")
 
 def travelTimeMatrixGenerator(numStudents):
 
-    print("Travel Time Matrix:\n")
+    #print("Travel Time Matrix:\n")
 
     # constants
     size = numStudents+1  # we need to include professor so we increase row and column sizes by 1
@@ -23,10 +24,10 @@ def travelTimeMatrixGenerator(numStudents):
     arr = np.zeros((size, size))
 
     # print labels on top of matrix
-    print("Travel Time\t  ", end='')
-    for i in range(size):
-        if i > 0:
-            print("Student", i, " ", end='')
+    #print("Travel Time\t  ", end='')
+    #for i in range(size):
+        #if i > 0:
+            #print("Student", i, " ", end='')
 
     # push new line since "end=''" replace '\n' new line character to print labels in the same line
     print()
@@ -39,9 +40,10 @@ def travelTimeMatrixGenerator(numStudents):
                 arr[i, j] = rand.randint(bottom, top)
                 arr[j, i] = arr[i, j]
         if i == 0 :
-            print("Professor:\t", (arr[i]))
+            print( (arr[i]))
         else:
-            print("Student", i, ":\t", (arr[i]))
+            print( (arr[i]))
+            
 
     # new line
     print()
@@ -110,80 +112,19 @@ def averageMatrixGeneratorV2(numStudents):
 #        N = N + 5
 
 # general variables
-maximumStudentAmount = 75  # TODO upper boundary for student amount
+maximumStudentAmount = 5  # TODO upper boundary for student amount
+N = 10  # TODO current student amount
+N2 = (int) (round(N * np.log(N)))
 
-N = 5  # TODO current student amount
+travel_time_matrice = []  # holds the travel times matrix
 
 # initialize lists
+for i in range(N2):
+    print()
+    print("Matrix ", i+1,":")
+    print()
+    travel_time_matrice = travelTimeMatrixGenerator(N)
+    
+exit(0)
 travel_times = travelTimeMatrixGenerator(N)
 homework_times = studyTimeListGenerator(N)
-
-exit(0)
-
-# TODO -> exit(0) ignores codes after this line(terminates the program), I am keeping codes below just in case
-##################################################################
-##################################################################
-
-# variables
-studentAmount = 75
-bottom = 100
-top= 300
-total_student_no = 75
-coordinate_limit = 150
-
-# arrays
-list = [0]
-homework_times = []
-student_x_coordinates = []
-student_y_coordinates = []
-
-# information
-N = total_student_no * np.log(total_student_no)
-print("total student number: ", total_student_no)
-print("N = total student no * log(total student no): ", int(round(N)))
-
-# for i in range(size):
-for i in range(int(round(N))): # loop size is N * lnN
-    newStudent = rand.sample(range(bottom, top), 1)[0] #create 1 unique random number inside the loop
-    list.append(newStudent)
-
-# travel times
-travel_times = np.array(list)
-travel_times = travel_times[1:travel_times.size]
-print("Travel Times Array: ", travel_times)
-
-print(" *************** \t ******************")
-print(" *************** \t ******************")
-print(" *************** \t ******************")
-
-# homework times
-for i in range(studentAmount):
-    homework_times.append(rand.randint(300,500))
-    
-print("Homework Times Array: " , homework_times, "\nlength", len(homework_times))
-
-print(" *************** \t ******************")
-print(" *************** \t ******************")
-print(" *************** \t ******************")
-
-# x coordinates
-for i in range(total_student_no):
-    student_x_coordinates.append(rand.randint(0, 150))
-    
-print("x coordinates to visit", student_x_coordinates, "\nlength", len(student_x_coordinates))
-
-print(" *************** \t ******************")
-print(" *************** \t ******************")
-print(" *************** \t ******************")
-
-# y coordinates
-for i in range(total_student_no):
-    student_y_coordinates.append(rand.randint(0, 150))
-    
-print("y coordinates to visit", student_y_coordinates, "\nlength", len(student_y_coordinates))
-
-print(" *************** \t ******************")
-print(" *************** \t ******************")
-print(" *************** \t ******************")
-
-
