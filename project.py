@@ -9,8 +9,6 @@ import numpy as np
 import random as rand
 from sys import exit
 
-print("\n-------Welcome to the IE400 Project-------\n")
-
 # general variables
 maximumStudentAmount = 5  # TODO upper boundary for student amount
 N = 10  # TODO current student amount
