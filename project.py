@@ -11,6 +11,12 @@ from sys import exit
 
 print("\n-------Welcome to the IE400 Project-------\n")
 
+# general variables
+maximumStudentAmount = 5  # TODO upper boundary for student amount
+N = 5  # TODO current student amount
+N2 = (int) (round(N * np.log(N)))
+global_time_matrix = np.zeros((N+1,N+1))
+
 def travelTimeMatrixGenerator(numStudents):
 
     #print("Travel Time Matrix:\n")
@@ -19,7 +25,7 @@ def travelTimeMatrixGenerator(numStudents):
     size = numStudents+1  # we need to include professor so we increase row and column sizes by 1
     bottom = 100
     top = 300
-
+  
     # 6x6 empty matrix
     arr = np.zeros((size, size))
 
@@ -76,31 +82,25 @@ def studyTimeListGenerator(numStudents):
 #        for j
 #            produce N*lnN matrix variations ( N * numpy.log(N) ) -> for k in range(NlnN): travelTimeMatrixGenerator(N)
 #            append matrices into an "array of matrices"
-#     get average values of from "arra
+#     get average values of from "array
 #     put them into an "average matrix"
 
-def averageMatrixGeneratorV1(numStudents):
-    averageArr = []
+def averageMatrixGeneratorV1(travel_time):
 
     # TODO fill here with implementation of average matrix generator
-
-    return averageArr
+    # Take the overall sum of eacch matrix's [i][j] values and pass these overal sums to global_time_matrix
+    for i in range(len(travel_time)):
+        for j in range(len(travel_time)):
+            global_time_matrix[i][j] += travel_time[i][j]
 
 
 #TODO 2) we can produce matrices and get average for O(n^3)
-# we can produce random variables an put them in a single matrix with O(n^3) as
-#    for i
-#       for j
-#           for k < N*lnN
-#               make random values
-#               put them into a matrix (average matrix)
+# take the global_time matrix and divide each value to N2 in order to get average values in the matrix
+def averageMatrixGeneratorV2(global_list_time, avgNo):
+   for i in range(len(global_list_time)):
+        for j in range(len(global_list_time)):
+            global_list_time[i][j] = (int) (round(global_list_time[i][j] / avgNo))
 
-def averageMatrixGeneratorV2(numStudents):
-    averageArr = []
-
-    # TODO fill here with implementation of average matrix generator
-
-    return averageArr
 
 # TODO (OPTIONAL) maybe it can be reduced to O( N^2 ) or O( N^2 * logN ) but we need to brainstorm over it !!!
 
@@ -111,10 +111,6 @@ def averageMatrixGeneratorV2(numStudents):
 #        averageMatrixGenerator(N)
 #        N = N + 5
 
-# general variables
-maximumStudentAmount = 5  # TODO upper boundary for student amount
-N = 10  # TODO current student amount
-N2 = (int) (round(N * np.log(N)))
 
 travel_time_matrice = []  # holds the travel times matrix
 
@@ -124,7 +120,13 @@ for i in range(N2):
     print("Matrix ", i+1,":")
     print()
     travel_time_matrice = travelTimeMatrixGenerator(N)
+    averageMatrixGeneratorV1(travel_time_matrice)
     
+averageMatrixGeneratorV2(global_time_matrix,N2)  
+print("global matrix is: ", "\n\n", global_time_matrix)    
 exit(0)
 travel_times = travelTimeMatrixGenerator(N)
 homework_times = studyTimeListGenerator(N)
+
+
+
