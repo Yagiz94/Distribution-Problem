@@ -151,7 +151,7 @@ def deliverHomeworks(travel_matrix, homework_time_list):
 print()
 print()
 print()
-print("Total visit time: ", deliverHomeworks(global_time_matrix,homework_times))
+print("Total visit time is: ", deliverHomeworks(global_time_matrix,homework_times), "minutes")
 print("Visited students:" , visited_students_list)
 
 exit(0)
