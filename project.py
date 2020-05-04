@@ -4,7 +4,7 @@ Spyder Editor
 
 This is a temporary script file.
 """
-import pandas as pd
+
 import numpy as np
 import random as rand
 from sys import exit
@@ -98,7 +98,7 @@ def averageMatrixGeneratorV1(travel_time):
 def averageMatrixGeneratorV2(global_list_time, avgNo):
    for i in range(len(global_list_time)):
         for j in range(len(global_list_time)):
-            global_list_time[i][j] = (int) (round(global_list_time[i][j] / avgNo))
+            global_list_time[i][j] = (global_list_time[i][j] / avgNo)
 
 
 # TODO (OPTIONAL) maybe it can be reduced to O( N^2 ) or O( N^2 * logN ) but we need to brainstorm over it !!!
