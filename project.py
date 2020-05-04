@@ -11,16 +11,15 @@ from sys import exit
 
 print("\n-------Welcome to the IE400 Project-------\n")
 
-# general variables
+# Global variables
 maximumStudentAmount = 5  # TODO upper boundary for student amount
 N = 5  # TODO current student amount
 N2 = (int) (round(N * np.log(N)))
 global_time_matrix = np.zeros((N+1,N+1))
 visited_students_list = [0]
+travel_time_matrice = []  # holds the travel times matrix
 
 def travelTimeMatrixGenerator(numStudents):
-
-    #print("Travel Time Matrix:\n")
 
     # constants
     size = numStudents+1  # we need to include professor so we increase row and column sizes by 1
@@ -108,20 +107,6 @@ def averageMatrixGeneratorV2(global_list_time, avgNo):
 #        averageMatrixGenerator(N)
 #        N = N + 5
 
-
-travel_time_matrice = []  # holds the travel times matrix
-
-# initialize lists
-for i in range(N2):
-    print("Matrix ", i+1,":")
-    travel_time_matrice = travelTimeMatrixGenerator(N)
-    averageMatrixGeneratorV1(travel_time_matrice)
-    
-averageMatrixGeneratorV2(global_time_matrix,N2)  
-homework_times = studyTimeListGenerator(N)
-print("\n Average time travel matrix is: ", "\n\n", global_time_matrix)
-print("\n\nHomework time matrix is: ", homework_times) 
-
 def deliverHomeworks(travel_matrix, homework_time_list):
     # This function computes the first minimum non-zero value in the target row
     # then the row number of the min value is set to the column no of the next location
@@ -148,9 +133,18 @@ def deliverHomeworks(travel_matrix, homework_time_list):
     print("\nUpdated matrix: \n\n", travel_matrix ,"\n")
     return travel_time_value
     
-print()
-print()
-print()
+# create & print sample matrices   
+# generate the average matrixx from the samples
+for i in range(N2):
+    print("Matrix ", i+1,":")
+    travel_time_matrice = travelTimeMatrixGenerator(N)
+    averageMatrixGeneratorV1(travel_time_matrice)
+    
+averageMatrixGeneratorV2(global_time_matrix,N2)  
+homework_times = studyTimeListGenerator(N)
+print("\n Average time travel matrix is: ", "\n\n", global_time_matrix)
+print("\n\nHomework time matrix is: ", homework_times) 
+print("\n\n\n")
 print("Total visit time is: ", deliverHomeworks(global_time_matrix,homework_times), "minutes")
 print("Visited students:" , visited_students_list)
 
