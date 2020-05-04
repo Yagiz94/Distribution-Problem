@@ -123,17 +123,23 @@ def deliverHomeworks(travel_matrix):
         # and passes it to 'value' variable
 
         # get minimum travel time and update the total time required
-        value = np.min(travel_matrix[controller][np.nonzero(travel_matrix[controller])])
+        ttm = travel_matrix[controller][np.nonzero(travel_matrix[controller])]
+        if ttm.size == 0:
+            print("----------------------")
+            break
+
+        value = np.min(ttm)
         travel_time_value += value
 
         # target converted to list format
         target = (np.where(travel_matrix == value)[0].tolist())
 
         # time-plane coordinates
-        x_coordinate = target[0] # target holds the related x and y coordinates[x,y]
+        x_coordinate = target[0] # target holds the relat   ed x and y coordinates[x,y]
         y_coordinate = target[1] # x and y coordinates in target list is passes through x & y variables
 
         # travel time path for students are printed on console
+        print()
         print("Step", i, ": Visited [x,y]: [", x_coordinate," , ", y_coordinate,"] , ", "Value: ", value,"\n")
 
         # mark visited home-points
@@ -160,10 +166,9 @@ for i in range(N2):
 
 averageMatrixGeneratorV2(global_time_matrix,N2)  
 homework_times = studyTimeListGenerator(N)
-print("\n Average time travel matrix is: ", "\n\n", global_time_matrix)
-print("\n\nHomework time matrix is: ", homework_times) 
-print("\n\n\n")
-print("Total visit time is: ", deliverHomeworks(global_time_matrix), "minutes")
-print("Visited students:" , visited_students_list)
+print("\nAverage time travel matrix is: \n\n", global_time_matrix)
+print("\n\nHomework time matrix is: ", homework_times)
+print("\nTotal visit time is: ", deliverHomeworks(global_time_matrix), "minutes")
+print("\nVisited students:" , visited_students_list)
 
 exit(0)
