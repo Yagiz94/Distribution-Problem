@@ -11,13 +11,13 @@ from sys import exit
 
 print("\n-------Welcome to the IE400 Project-------\n")
 
-# Global variables
-maximumStudentAmount = 5  # TODO upper boundary for student amount
-N = 3  # TODO current student amount
+# global variables
+N = 5  # TODO max student amount
 N2 = (int) (round(N * np.log(N)))
 global_time_matrix = np.zeros((N+1,N+1))
 visited_students_list = [0]
-travel_time_matrix = []  # holds the travel times matrix
+travel_time_matrice = []  # holds the travel times matrix
+controller = 0
 
 def travelTimeMatrixGenerator(numStudents):
 
@@ -84,7 +84,7 @@ def studyTimeListGenerator(numStudents):
 def averageMatrixGeneratorV1(travel_time):
 
     # TODO fill here with implementation of average matrix generator
-    # Take the overall sum of eacc matrix's [i][j] values and pass these overall sums to global_time_matrix
+    # Take the overall sum of eacch matrix's [i][j] values and pass these overal sums to global_time_matrix
     for i in range(len(travel_time)):
         for j in range(len(travel_time)):
             global_time_matrix[i][j] += travel_time[i][j]
@@ -95,8 +95,7 @@ def averageMatrixGeneratorV1(travel_time):
 def averageMatrixGeneratorV2(global_list_time, avgNo):
    for i in range(len(global_list_time)):
         for j in range(len(global_list_time)):
-            global_list_time[i][j] = (global_list_time[i][j] / avgNo)
-
+            global_list_time[i][j] = (int) (round(global_list_time[i][j] / avgNo))
 
 # TODO (OPTIONAL) maybe it can be reduced to O( N^2 ) or O( N^2 * logN ) but we need to brainstorm over it !!!
 
@@ -107,68 +106,48 @@ def averageMatrixGeneratorV2(global_list_time, avgNo):
 #        averageMatrixGenerator(N)
 #        N = N + 5
 
-def deliverHomeworks(travel_matrix):
+def deliverHomeworks(travel_matrix, homework_time_list):
     # This function computes the first minimum non-zero value in the target row
     # then the row number of the min value is set to the column no of the next location
     # the values in visited locations and their symmetry indexes are set to zero 
-    # in order not to pass from these locations again
-
-    # constants
-    controller = 0
+    # in order not to pass from these locations again 
+    global controller # controller points to global 'counter' variable 
+    value = 0
     travel_time_value = 0
-
-    # trace the students
     for i in range(len(travel_matrix)):
         # the code line below gets the nonzero min element of row number == controller 
         # and passes it to 'value' variable
-
-        # get minimum travel time and update the total time required
-        ttm = travel_matrix[controller][np.nonzero(travel_matrix[controller])]
-        if ttm.size == 0:
-            print("----------------------")
-            break
-
-        value = np.min(ttm)
+         
+        value = np.min(travel_matrix[controller][np.nonzero(travel_matrix[controller])])
         travel_time_value += value
-
-        # target converted to list format
-        target = (np.where(travel_matrix == value)[0].tolist())
-
-        # time-plane coordinates
-        x_coordinate = target[0] # target holds the relat   ed x and y coordinates[x,y]
+        #problem is here see the console prints run multiple times
+        target = (np.where(travel_matrix == value)[0].tolist()) # target converted to list format 
+        print("\nnkdsjfhksjdhflkjshkjh\n", np.where(travel_matrix == value),"\nTarget: ", target)
+        x_coordinate = target[0] # target holds the related x and y coordinates[x,y]
         y_coordinate = target[1] # x and y coordinates in target list is passes through x & y variables
-
         # travel time path for students are printed on console
-        print()
-        print("Step", i, ": Visited [x,y]: [", x_coordinate," , ", y_coordinate,"] , ", "Value: ", value,"\n")
-
-        # mark visited home-points
+        #print("Step", i, ": Visited [x,y]: [", x_coordinate," , ", y_coordinate,"] , ", "Value: ", value,"\n")
         travel_matrix[x_coordinate][y_coordinate] = 0
         travel_matrix[y_coordinate][x_coordinate] = 0
-
-        # set controller to y_coordinate and update visited list
-        controller = y_coordinate
+        controller = y_coordinate # set controller to y_coordinate
         visited_students_list.append(controller)
-
-    # observe the result status of the travel time matrix
+        
     print("\nUpdated matrix: \n\n", travel_matrix ,"\n")
     return travel_time_value
-
-
-# create & print sample matrices and generate the average matrix from the samples
+    
+# create & print sample matrices   
+# generate the average matrix from the samples
 for i in range(N2):
-    # trace the traveling process
     print("Matrix ", i+1,":")
-
-    # regenerate each step via matrix and retrieve the average time matrix
-    travel_time_matrix = travelTimeMatrixGenerator(N)
-    averageMatrixGeneratorV1(travel_time_matrix)
-
+    travel_time_matrice = travelTimeMatrixGenerator(N)
+    averageMatrixGeneratorV1(travel_time_matrice)
+    
 averageMatrixGeneratorV2(global_time_matrix,N2)  
 homework_times = studyTimeListGenerator(N)
-print("\nAverage time travel matrix is: \n\n", global_time_matrix)
-print("\n\nHomework time matrix is: ", homework_times)
-print("\nTotal visit time is: ", deliverHomeworks(global_time_matrix), "minutes")
-print("\nVisited students:" , visited_students_list)
+print("\n Average time travel matrix is: ", "\n\n", global_time_matrix)
+print("\n\nHomework time matrix is: ", homework_times) 
+print("\n\n\n")
+print("Total visit time is: ", deliverHomeworks(global_time_matrix,homework_times), "minutes")
+print("Visited students:" , visited_students_list)
 
 exit(0)
