@@ -49,12 +49,10 @@ def travelTimeMatrixGenerator(numStudents):
             print( (arr[i]))
         else:
             print( (arr[i]))
-            
-
+        
     # new line
     print()
     return arr
-
 
 def studyTimeListGenerator(numStudents):
 
@@ -67,7 +65,6 @@ def studyTimeListGenerator(numStudents):
     print("Student Study Times: ", arr)
 
     return arr
-
 
 #TODO cuurentStudentAmount = 75 # N = 5, 10, 15 ... 75
 
@@ -122,13 +119,17 @@ for i in range(N2):
 averageMatrixGeneratorV2(global_time_matrix,N2)  
 homework_times = studyTimeListGenerator(N)
 print("\n Average time travel matrix is: ", "\n\n", global_time_matrix)
-print("\n\nHomework time matrix is: ", homework_times)    
+print("\n\nHomework time matrix is: ", homework_times) 
+   
+#global list 
+visited_students_list = [0]
 
-def deliverHomeworks(travel_matrix, homework_time_list,controller):
+def deliverHomeworks(travel_matrix, homework_time_list):
     # This function computes the first minimum non-zero value in the target row
     # then the row number of the min value is set to the column no of the next location
     # the values in visited locations and their symmetry indexes are set to zero 
     # in order not to pass from these locations again 
+    controller = 0
     value = 0
     travel_time_value = 0
     for i in range(len(travel_matrix)):
@@ -136,16 +137,15 @@ def deliverHomeworks(travel_matrix, homework_time_list,controller):
         # and passes it to 'value' variable
         value = np.min(travel_matrix[controller][np.nonzero(travel_matrix[controller])])
         travel_time_value += value
-        #target = list(zip(*np.where(travel_matrix == value))) # returns in format [(x,y), (x,y)]
         target = (np.where(travel_matrix == value)[0].tolist()) # target converted to list format 
         x_coordinate = target[0] # target holds the related x and y coordinates[x,y]
         y_coordinate = target[1] # x and y coordinates in target list is passes through x & y variables
-        
         #travel time path for students are printed on console
-        print("Visited [x,y]: [", x_coordinate," , ", y_coordinate,"] , ", "Value: ", value,"\n")
+        print("Step", i, ": Visited [x,y]: [", x_coordinate," , ", y_coordinate,"] , ", "Value: ", value,"\n")
         travel_matrix[x_coordinate][y_coordinate] = 0
         travel_matrix[y_coordinate][x_coordinate] = 0
-        controller = target[1] #set controller to y_coordinate
+        controller = y_coordinate # set controller to y_coordinate
+        visited_students_list.append(controller)
         
     print("\nUpdated matrix: \n\n", travel_matrix ,"\n")
     return travel_time_value
@@ -153,6 +153,7 @@ def deliverHomeworks(travel_matrix, homework_time_list,controller):
 print()
 print()
 print()
-print(deliverHomeworks(global_time_matrix,homework_times,0))
+print("Total visit time: ", deliverHomeworks(global_time_matrix,homework_times))
+print("Visited students:" , visited_students_list)
 
 exit(0)
