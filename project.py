@@ -9,9 +9,11 @@ import numpy as np
 import random as rand
 from sys import exit
 
+print("\n-------Welcome to the IE400 Project-------\n")
+
 # general variables
 maximumStudentAmount = 5  # TODO upper boundary for student amount
-N = 10  # TODO current student amount
+N = 5  # TODO current student amount
 N2 = (int) (round(N * np.log(N)))
 global_time_matrix = np.zeros((N+1,N+1))
 
@@ -118,7 +120,39 @@ for i in range(N2):
     averageMatrixGeneratorV1(travel_time_matrice)
     
 averageMatrixGeneratorV2(global_time_matrix,N2)  
-print("\n Average time travel matrix is: ", "\n\n", global_time_matrix)    
-exit(0)
-travel_times = travelTimeMatrixGenerator(N)
 homework_times = studyTimeListGenerator(N)
+print("\n Average time travel matrix is: ", "\n\n", global_time_matrix)
+print("\n\nHomework time matrix is: ", homework_times)    
+
+def deliverHomeworks(travel_matrix, homework_time_list,controller):
+    # This function computes the first minimum non-zero value in the target row
+    # then the row number of the min value is set to the column no of the next location
+    # the values in visited locations and their symmetry indexes are set to zero 
+    # in order not to pass from these locations again 
+    value = 0
+    travel_time_value = 0
+    for i in range(len(travel_matrix)):
+        # the code line below gets the nonzero min element of row number == controller 
+        # and passes it to 'value' variable
+        value = np.min(travel_matrix[controller][np.nonzero(travel_matrix[controller])])
+        travel_time_value += value
+        #target = list(zip(*np.where(travel_matrix == value))) # returns in format [(x,y), (x,y)]
+        target = (np.where(travel_matrix == value)[0].tolist()) # target converted to list format 
+        x_coordinate = target[0] # target holds the related x and y coordinates[x,y]
+        y_coordinate = target[1] # x and y coordinates in target list is passes through x & y variables
+        
+        #travel time path for students are printed on console
+        print("Visited [x,y]: [", x_coordinate," , ", y_coordinate,"] , ", "Value: ", value,"\n")
+        travel_matrix[x_coordinate][y_coordinate] = 0
+        travel_matrix[y_coordinate][x_coordinate] = 0
+        controller = target[1] #set controller to y_coordinate
+        
+    print("\nUpdated matrix: \n\n", travel_matrix ,"\n")
+    return travel_time_value
+    
+print()
+print()
+print()
+print(deliverHomeworks(global_time_matrix,homework_times,0))
+
+exit(0)
