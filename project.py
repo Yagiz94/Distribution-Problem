@@ -16,6 +16,7 @@ maximumStudentAmount = 5  # TODO upper boundary for student amount
 N = 5  # TODO current student amount
 N2 = (int) (round(N * np.log(N)))
 global_time_matrix = np.zeros((N+1,N+1))
+visited_students_list = [0]
 
 def travelTimeMatrixGenerator(numStudents):
 
@@ -120,9 +121,6 @@ averageMatrixGeneratorV2(global_time_matrix,N2)
 homework_times = studyTimeListGenerator(N)
 print("\n Average time travel matrix is: ", "\n\n", global_time_matrix)
 print("\n\nHomework time matrix is: ", homework_times) 
-   
-#global list 
-visited_students_list = [0]
 
 def deliverHomeworks(travel_matrix, homework_time_list):
     # This function computes the first minimum non-zero value in the target row
