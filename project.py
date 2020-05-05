@@ -12,7 +12,7 @@ from sys import exit
 print("\n-------Welcome to the IE400 Project-------\n")
 
 # global variables
-N = 5  # TODO max student amount
+N = 10  # TODO max student amount
 N2 = (int) (round(N * np.log(N)))
 global_time_matrix = np.zeros((N+1,N+1))
 visited_students_list = [0]
@@ -93,11 +93,13 @@ def deliverHomeworks(travel_matrix, homework_time_list):
     value = 0
     travel_time_value = 0
     while(value != np.Inf):
-    
         # the code line below gets the min element of row number == controller 
         # and passes it to 'value' variable
         value = np.min(travel_matrix[controller])
-        travel_time_value += value
+        
+        if value != np.Inf:
+            travel_time_value += value
+            
         target = (np.where(travel_matrix[controller] == value))[0].tolist() # target converted to list format 
         x = controller  # target holds the related x and y coordinates[x,y]
         y =  target[0]  # x and y coordinates in target list is passes through x & y variables
