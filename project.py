@@ -95,7 +95,7 @@ def averageMatrixGeneratorV1(travel_time):
 def averageMatrixGeneratorV2(global_list_time, avgNo):
    for i in range(len(global_list_time)):
         for j in range(len(global_list_time)):
-            global_list_time[i][j] = (int) (round(global_list_time[i][j] / avgNo))
+            global_list_time[i][j] = (global_list_time[i][j] / avgNo)
 
 # TODO (OPTIONAL) maybe it can be reduced to O( N^2 ) or O( N^2 * logN ) but we need to brainstorm over it !!!
 
@@ -122,11 +122,11 @@ def deliverHomeworks(travel_matrix, homework_time_list):
         travel_time_value += value
         #problem is here see the console prints run multiple times
         target = (np.where(travel_matrix == value)[0].tolist()) # target converted to list format 
-        print("\nnkdsjfhksjdhflkjshkjh\n", np.where(travel_matrix == value),"\nTarget: ", target)
+        #print("\nnkdsjfhksjdhflkjshkjh\n", np.where(travel_matrix == value),"\nTarget: ", target)
         x_coordinate = target[0] # target holds the related x and y coordinates[x,y]
         y_coordinate = target[1] # x and y coordinates in target list is passes through x & y variables
         # travel time path for students are printed on console
-        #print("Step", i, ": Visited [x,y]: [", x_coordinate," , ", y_coordinate,"] , ", "Value: ", value,"\n")
+        print("Step", i, ": Visited [x,y]: [", x_coordinate," , ", y_coordinate,"] , ", "Value: ", value,"\n")
         travel_matrix[x_coordinate][y_coordinate] = 0
         travel_matrix[y_coordinate][x_coordinate] = 0
         controller = y_coordinate # set controller to y_coordinate
