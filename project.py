@@ -12,7 +12,7 @@ from sys import exit
 print("\n-------Welcome to the IE400 Project-------\n")
 
 # global variables
-N = 10  # TODO max student amount
+N = 5  # TODO max student amount
 N2 = (int) (round(N * np.log(N)))
 global_time_matrix = np.zeros((N+1,N+1))
 visited_students_list = [0]
