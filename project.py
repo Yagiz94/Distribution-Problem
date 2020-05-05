@@ -45,6 +45,8 @@ def travelTimeMatrixGenerator(numStudents):
             if i != j and arr[i, j] == 0:
                 arr[i, j] = rand.randint(bottom, top)
                 arr[j, i] = arr[i, j]
+            elif i == j:
+                arr[i][j] = np.Inf # set diagonal values to infinity
         if i == 0 :
             print( (arr[i]))
         else:
@@ -66,20 +68,6 @@ def studyTimeListGenerator(numStudents):
 
     return arr
 
-#TODO cuurentStudentAmount = 75 # N = 5, 10, 15 ... 75
-
-# TODO we have two possible procedures to find "average matrix"
-
-# TODO 1) we can produce matrices and get average for O(n^3)
-#     for i
-#       for j
-#           produce a matrix
-#     for i
-#        for j
-#            produce N*lnN matrix variations ( N * numpy.log(N) ) -> for k in range(NlnN): travelTimeMatrixGenerator(N)
-#            append matrices into an "array of matrices"
-#     get average values of from "array
-#     put them into an "average matrix"
 
 def averageMatrixGeneratorV1(travel_time):
 
@@ -97,39 +85,27 @@ def averageMatrixGeneratorV2(global_list_time, avgNo):
         for j in range(len(global_list_time)):
             global_list_time[i][j] = (global_list_time[i][j] / avgNo)
 
-# TODO (OPTIONAL) maybe it can be reduced to O( N^2 ) or O( N^2 * logN ) but we need to brainstorm over it !!!
-
-#TODO we also need to test everything with different currntStudentAmount(N) so
-# we will increment N by 5 in for loop after producing "average matrix" for each N case as
-#    for i = 5 to 75
-#        N = i
-#        averageMatrixGenerator(N)
-#        N = N + 5
-
 def deliverHomeworks(travel_matrix, homework_time_list):
-    # This function computes the first minimum non-zero value in the target row
+    # This function computes the first minimum value in the target row
     # then the row number of the min value is set to the column no of the next location
-    # the values in visited locations and their symmetry indexes are set to zero 
-    # in order not to pass from these locations again 
+    # the values in visited locations and their symmetry indexes are set to Infinity not to pass these points again
     global controller # controller points to global 'counter' variable 
     value = 0
     travel_time_value = 0
-    for i in range(len(travel_matrix)):
-        # the code line below gets the nonzero min element of row number == controller 
+    while(value != np.Inf):
+    
+        # the code line below gets the min element of row number == controller 
         # and passes it to 'value' variable
-         
-        value = np.min(travel_matrix[controller][np.nonzero(travel_matrix[controller])])
+        value = np.min(travel_matrix[controller])
         travel_time_value += value
-        #problem is here see the console prints run multiple times
-        target = (np.where(travel_matrix == value)[0].tolist()) # target converted to list format 
-        #print("\nnkdsjfhksjdhflkjshkjh\n", np.where(travel_matrix == value),"\nTarget: ", target)
-        x_coordinate = target[0] # target holds the related x and y coordinates[x,y]
-        y_coordinate = target[1] # x and y coordinates in target list is passes through x & y variables
+        target = (np.where(travel_matrix[controller] == value))[0].tolist() # target converted to list format 
+        x = controller  # target holds the related x and y coordinates[x,y]
+        y =  target[0]  # x and y coordinates in target list is passes through x & y variables
+        controller = y # set controller to y_coordinate
         # travel time path for students are printed on console
-        print("Step", i, ": Visited [x,y]: [", x_coordinate," , ", y_coordinate,"] , ", "Value: ", value,"\n")
-        travel_matrix[x_coordinate][y_coordinate] = 0
-        travel_matrix[y_coordinate][x_coordinate] = 0
-        controller = y_coordinate # set controller to y_coordinate
+        print("Step", ": Visited [x,y]: [", x," , ", y,"] , ", "Value: ", value)
+        travel_matrix[x][y] = np.Inf
+        travel_matrix[y][x] = np.Inf
         visited_students_list.append(controller)
         
     print("\nUpdated matrix: \n\n", travel_matrix ,"\n")
