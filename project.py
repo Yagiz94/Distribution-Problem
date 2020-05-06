@@ -9,10 +9,8 @@ import numpy as np
 import random as rand
 from sys import exit
 
-print("\n-------Welcome to the IE400 Project-------\n")
-
 # global variables
-N = 5  # TODO max student amount
+N = 10  # TODO max student amount
 N2 = (int) (round(N * np.log(N)))
 global_time_matrix = np.zeros((N+1,N+1))
 visited_students_list = [0]
@@ -86,14 +84,20 @@ def averageMatrixGeneratorV2(global_list_time, avgNo):
             global_list_time[i][j] = (global_list_time[i][j] / avgNo)
 
 def deliverHomeworks(travel_matrix, homework_time_list):
-    # This function computes the first minimum value in the target row
-    # then the row number of the min value is set to the column no of the next location
-    # the values in visited locations and their symmetry indexes are set to Infinity not to pass these points again
+    # This function computes the minimum value in current row
+    # Then the value is added to the total_travel_time  
+    # Find the index of the min value in row # = controller  
+    # Then set column # = controller & set row # = controller to Infinity, in order not to visit the current student again
+    # Then the col number of the min value is set to the row no of the next location
+    # Go to next iteration with the updated row number
+    # Index 0 indicates the intructor in the average travel time matrix
     global controller # controller points to global 'controller' variable 
     value = 0
     travel_time_value = 0
     var = 1 # counter hols the iteration number
-    while(value != np.Inf):
+    
+    #while(value != np.Inf):
+    for i in range(len(travel_matrix)):
         # the code line below gets the min element of row number == controller 
         # and passes it to 'value' variable
         value = np.min(travel_matrix[controller]) # find th min number in the row
@@ -104,15 +108,16 @@ def deliverHomeworks(travel_matrix, homework_time_list):
         target = (np.where(travel_matrix[controller] == value))[0].tolist() # find the index of the value in the row
         x = controller  # target holds the related x and y coordinates[x,y]
         y =  target[0]  # x and y coordinates in target list is passes through x & y variables
-        
+        travel_matrix[:,controller] = np.Inf # set the column = controller to infinity
+        travel_matrix[controller,:] = np.Inf # set the row = controller to infinity
         # travel time path for students are printed on console
         print("Step", var,": Visited [x,y]: [", x," , ", y,"] , ", "Value: ", value)
         # set the location and its symmetry to infinity to indicate that the student is visited 
-        travel_matrix[x][y] = np.Inf 
-        travel_matrix[y][x] = np.Inf
+        #travel_matrix[x][y] = np.Inf 
+        #travel_matrix[y][x] = np.Inf
         controller = y # set controller to y_coordinate value for deciding next student number to travel
         visited_students_list.append(controller)
-        var+=1
+        #var+=1
         
     print("\nUpdated matrix: \n\n", travel_matrix ,"\n")
     return travel_time_value
