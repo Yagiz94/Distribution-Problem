@@ -92,23 +92,25 @@ def deliverHomeworks(travel_matrix, homework_time_list):
     global controller # controller points to global 'controller' variable 
     value = 0
     travel_time_value = 0
-    var = 1 # counter
+    var = 1 # counter hols the iteration number
     while(value != np.Inf):
         # the code line below gets the min element of row number == controller 
         # and passes it to 'value' variable
-        value = np.min(travel_matrix[controller])
+        value = np.min(travel_matrix[controller]) # find th min number in the row
         
         if value != np.Inf:
-            travel_time_value += value
+            travel_time_value += value # update the total_value
             
-        target = (np.where(travel_matrix[controller] == value))[0].tolist() # target converted to list format 
+        target = (np.where(travel_matrix[controller] == value))[0].tolist() # find the index of the value in the row
         x = controller  # target holds the related x and y coordinates[x,y]
         y =  target[0]  # x and y coordinates in target list is passes through x & y variables
-        controller = y # set controller to y_coordinate
+        
         # travel time path for students are printed on console
         print("Step", var,": Visited [x,y]: [", x," , ", y,"] , ", "Value: ", value)
-        travel_matrix[x][y] = np.Inf
+        # set the location and its symmetry to infinity to indicate that the student is visited 
+        travel_matrix[x][y] = np.Inf 
         travel_matrix[y][x] = np.Inf
+        controller = y # set controller to y_coordinate value for deciding next student number to travel
         visited_students_list.append(controller)
         var+=1
         
