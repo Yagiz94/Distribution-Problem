@@ -83,7 +83,7 @@ def deliverHomeworks(travel_matrix, homework_time_list):
     return total_time
     
 # Global Variables
-N = 10 #student amount
+N = 5 #student amount
 N2 = (int) (round(N * np.log(N)))
 global_time_matrix = np.zeros((N+1,N+1))
 visited_students_list = [0]
