@@ -89,9 +89,10 @@ def deliverHomeworks(travel_matrix, homework_time_list):
     # This function computes the first minimum value in the target row
     # then the row number of the min value is set to the column no of the next location
     # the values in visited locations and their symmetry indexes are set to Infinity not to pass these points again
-    global controller # controller points to global 'counter' variable 
+    global controller # controller points to global 'controller' variable 
     value = 0
     travel_time_value = 0
+    var = 1 # counter
     while(value != np.Inf):
         # the code line below gets the min element of row number == controller 
         # and passes it to 'value' variable
@@ -105,10 +106,11 @@ def deliverHomeworks(travel_matrix, homework_time_list):
         y =  target[0]  # x and y coordinates in target list is passes through x & y variables
         controller = y # set controller to y_coordinate
         # travel time path for students are printed on console
-        print("Step", ": Visited [x,y]: [", x," , ", y,"] , ", "Value: ", value)
+        print("Step", var,": Visited [x,y]: [", x," , ", y,"] , ", "Value: ", value)
         travel_matrix[x][y] = np.Inf
         travel_matrix[y][x] = np.Inf
         visited_students_list.append(controller)
+        var+=1
         
     print("\nUpdated matrix: \n\n", travel_matrix ,"\n")
     return travel_time_value
