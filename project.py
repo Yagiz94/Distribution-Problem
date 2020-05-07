@@ -161,11 +161,11 @@ def graphizier(axis, ordinate,ordinateName,title):
     matlab.show()
 
 
-# show what we got!!!
+# run the program
 def beautify():
     global prox, iteration
 
-    #
+    # check data and store them to arrays for N=5 to 75 for each "five more" students
     while prox <= 70:
 
         print("\n---iteration:",iteration,"---")
@@ -192,6 +192,7 @@ def beautify():
     graphizier(arrayStudentsNumbers,arrayElapsed,"Runtime(seconds)","Student Amount x Runtime Change")
 
 
+# Show what we've got!!!
 beautify()
 
 exit(0)
