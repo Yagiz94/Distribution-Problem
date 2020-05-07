@@ -6,6 +6,8 @@ This is a temporary script file.
 
 import numpy as np
 import random as rand
+import timeit
+import matplotlib.pyplot as plt
 from sys import exit
 
 def travelTimeMatrixGenerator(numStudents):
@@ -32,7 +34,7 @@ def studyTimeListGenerator(numStudents):
     top = 500
     # generate unique study times for students
     arr = rand.sample(range(bottom, top), numStudents)
-    print("\nStudent Study Times: ", arr)
+    print("Homework time matrix is: ", arr)
     return arr
 
 def averageMatrixGeneratorV1(travel_time):
@@ -77,7 +79,7 @@ def deliverHomeworks(travel_matrix, homework_time_list):
         controller = y # set controller to y_coordinate value for deciding next student number to travel
         visited_students_list.append(controller)
     print("\nUpdated matrix: \n\n", travel_matrix ,"\n")
-    print("Visited students:" , visited_students_list,"\n")
+    print("Visited students:" , visited_students_list,"\n","Array Size: ", len(visited_students_list),"\n")
     for i in range(len(homework_times)):
         total_time += homework_times[i] ## add the homework time values of students to the total_time
     return total_time
@@ -85,22 +87,55 @@ def deliverHomeworks(travel_matrix, homework_time_list):
 # Global Variables
 N = 5 #student amount
 N2 = (int) (round(N * np.log(N)))
-global_time_matrix = np.zeros((N+1,N+1))
-visited_students_list = [0]
 travel_time_matrix = []  # holds the travel times matrix
 controller = 0
-
+iteration = 0
+total_time_result = 0 # final optimal value
+optimal_array = [] # hold results in array for graph
+runtime_array= [] # hold result in array for graph
+N_array = [] # hold N values for graph
+f = open("output.txt","w+") 
 # create & print sample matrices   
 # generate the average matrix from the samples
-for i in range(N2):
-    travel_time_matrix = travelTimeMatrixGenerator(N)
-    #print("Matrix", i+1,":\n", travel_time_matrix,"\n")
-    averageMatrixGeneratorV1(travel_time_matrix)
-        
-averageMatrixGeneratorV2(global_time_matrix,N2) # computes the average matrix 
-homework_times = studyTimeListGenerator(N) # generate random homework times for each student
-print("\nAverage time travel matrix is: ", "\n\n", global_time_matrix)
-print("\nHomework time matrix is: ", homework_times,"\n") 
-print("Total time is: ", deliverHomeworks(global_time_matrix,homework_times), "minutes")
+while(N <= 75):
+    start = timeit.default_timer() #start timer
+    N_array.append(N) # graph
+    global_time_matrix = np.zeros((N+1,N+1))
+    visited_students_list = [0]
+    print("Iteration: ", iteration+1, "\tN == ", N,"\n")
+    
+    for i in range(N2):
+        travel_time_matrix = travelTimeMatrixGenerator(N)
+        #print("Matrix", i+1,":\n", travel_time_matrix,"\n") # see the matrixes printed for each N
+        averageMatrixGeneratorV1(travel_time_matrix)
+                
+    averageMatrixGeneratorV2(global_time_matrix,N2) # computes the average matrix 
+    homework_times = studyTimeListGenerator(N) # generate random homework times for each student
+    # print values on console
+    print("\nAverage time travel matrix is: ", "\n\n", global_time_matrix,"\n")
+    total_time_result = deliverHomeworks(global_time_matrix,homework_times)
+    print("Optimal value is: ", total_time_result, "minutes") 
+    stop = timeit.default_timer() # stop timer after computation finishes
+    timer = stop-start
+    print('Runtime is: ',timer, "seconds")  
+    # write the optimal values to  output.txt
+    f.write("For N = " + str(N) +"\tOptimal Value is: " + str(total_time_result) + "\tRuntime: " + str(stop - start) + " seconds\n") 
+    optimal_array.append(total_time_result)
+    runtime_array.append(timer)
+    del global_time_matrix
+    del visited_students_list
+    N = N + 5
+    iteration+= 1
+    
+# plot graphs    
+plt.plot(N_array,optimal_array, color='lightblue', linewidth=3) 
+plt.xlabel("No of Students (N)")
+plt.ylabel("Optimal Values (minutes)")
+plt.show()
+plt.plot(N_array,runtime_array,color='lightblue', linewidth=3) 
+plt.xlabel("No of Students (N)")
+plt.ylabel("Runtime Values (seconds)")
+plt.show()
 
+f.close() #close file when program finishes executing values
 exit(0)
