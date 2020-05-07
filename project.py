@@ -6,7 +6,7 @@ This is a temporary script file.
 
 import numpy as np
 import random as rand
-import timeit
+import time
 import matplotlib.pyplot as plt
 from sys import exit
 
@@ -98,7 +98,7 @@ f = open("output.txt","w+")
 # create & print sample matrices   
 # generate the average matrix from the samples
 while(N <= 75):
-    start = timeit.default_timer() #start timer
+    start = time.clock() #start timer
     N_array.append(N) # graph
     global_time_matrix = np.zeros((N+1,N+1))
     visited_students_list = [0]
@@ -115,7 +115,7 @@ while(N <= 75):
     print("\nAverage time travel matrix is: ", "\n\n", global_time_matrix,"\n")
     total_time_result = deliverHomeworks(global_time_matrix,homework_times)
     print("Optimal value is: ", total_time_result, "minutes") 
-    stop = timeit.default_timer() # stop timer after computation finishes
+    stop = time.clock() # stop timer after computation finishes
     timer = stop-start
     print('Runtime is: ',timer, "seconds")  
     # write the optimal values to  output.txt
