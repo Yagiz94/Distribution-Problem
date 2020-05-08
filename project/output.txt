@@ -1,0 +1,15 @@
+For N = 5	Optimal Value is: 3017.375	Runtime: 0.00480585600000083 seconds
+For N = 10	Optimal Value is: 5929.625	Runtime: 0.007333180999999911 seconds
+For N = 15	Optimal Value is: 8777.0	Runtime: 0.013212616000000565 seconds
+For N = 20	Optimal Value is: 11471.875	Runtime: 0.020547439000001333 seconds
+For N = 25	Optimal Value is: 14370.25	Runtime: 0.030297096000001744 seconds
+For N = 30	Optimal Value is: 16945.875	Runtime: 0.0429423369999995 seconds
+For N = 35	Optimal Value is: 20160.0	Runtime: 0.05585032799999823 seconds
+For N = 40	Optimal Value is: 22423.75	Runtime: 0.07043088499999683 seconds
+For N = 45	Optimal Value is: 25300.25	Runtime: 0.049379294000001295 seconds
+For N = 50	Optimal Value is: 28239.75	Runtime: 0.08058246699999927 seconds
+For N = 55	Optimal Value is: 30487.125	Runtime: 0.08967442799999858 seconds
+For N = 60	Optimal Value is: 33640.0	Runtime: 0.09917816800000168 seconds
+For N = 65	Optimal Value is: 36457.25	Runtime: 0.11069769100000215 seconds
+For N = 70	Optimal Value is: 39663.25	Runtime: 0.12218478099999786 seconds
+For N = 75	Optimal Value is: 42186.625	Runtime: 0.14166890399999943 seconds
