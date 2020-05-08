@@ -102,7 +102,7 @@ while(N <= 75):
     N_array.append(N) # graph
     global_time_matrix = np.zeros((N+1,N+1))
     visited_students_list = [0]
-    print("Iteration: ", iteration+1, "\tN == ", N,"\n")
+    print("\nIteration: ", iteration+1, "\tN == ", N,"\n")
     
     for i in range(N2):
         travel_time_matrix = travelTimeMatrixGenerator(N)
