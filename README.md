@@ -11,6 +11,6 @@ Model this problem as an DP problem. (Please clearly write functional equations 
 
 For each student generate some random xi ∈ [300,500] only once. Generate it for N = 75 students. For problem instances with smaller number of students, use this same data as follows: Use the ﬁrst 5 values for N = 5, ﬁrst 10 for N = 10 and so on. Now, for each N = 5,10,...,75 number of students, generate bN ln(N))c diﬀerent random travel time matrices (each such matrix will provide a problem instance for you to use in your experiments) with random travel times in the range [100,300] between any pair of of those N students and between each student and the professor, e.g., for N = 5 generate 8 travel time matrices (8 instances).
 
-Solve IP problem that you modelled.
+Solve the IP problem that you modelled.
 
 Solve DP problem according to your model.
